@@ -1,0 +1,21 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/api/submit-iq-test', methods=['POST'])
+def submit_iq_test():
+    data = request.get_json()
+    score = data.get('score', 0)
+    iq = calculate_iq(score)
+    return jsonify({'iq': iq})
+
+def calculate_iq(score):
+    if score == 2:
+        return 130  # Magas IQ
+    elif score == 1:
+        return 100  # Átlagos IQ
+    else:
+        return 80   # Alacsonyabb IQ
+
+if __name__ == '__main__':
+    app.run(debug=True)
